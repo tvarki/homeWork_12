@@ -5,14 +5,12 @@
 //  Created by Дмитрий Яковлев on 09.12.2019.
 //  Copyright © 2019 Дмитрий Яковлев. All rights reserved.
 //
+
 import UIKit
 
 // MARK: - Protocol for coordinator delegate
 protocol Tab2ViewControllerCoordinatorDelegate: AnyObject {
     func tab1Pressed()
-    func backTapped()
-    func isBackVisible()->Bool
-
 }
 
 final class Tab2ViewController: UIViewController {
@@ -28,9 +26,6 @@ final class Tab2ViewController: UIViewController {
         delegate?.tab1Pressed()
     }
     
-    @objc func backTapped() {
-        delegate?.backTapped()
-    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -55,16 +50,10 @@ final class Tab2ViewController: UIViewController {
         button.sizeToFit()
         button.center = CGPoint(x: 100, y: 100)
         view.addSubview(button)
-        
-        back = UIBarButtonItem(barButtonSystemItem: .undo, target: self, action: #selector(backTapped))
-        
-        guard let res = delegate?.isBackVisible() else {return}
-        back?.isEnabled = res
-
-        
-        navigationItem.rightBarButtonItems = [back!]
-
-        navigationItem.setHidesBackButton(true, animated:true)
+    
+//        navigationItem.rightBarButtonItems = [back!]
+//
+//        navigationItem.setHidesBackButton(true, animated:true)
     }
     
 }

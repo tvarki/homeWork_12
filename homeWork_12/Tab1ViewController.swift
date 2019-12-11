@@ -11,8 +11,7 @@ import UIKit
 // MARK: - Protocol for coordinator delegate
 protocol Tab1ViewControllerCoordinatorDelegate: AnyObject {
     func tab2PressedButton()
-    func backTapped()
-    func isBackVisible()->Bool
+
 }
 
 final class Tab1ViewController: UIViewController {
@@ -28,10 +27,9 @@ final class Tab1ViewController: UIViewController {
         delegate?.tab2PressedButton()
     }
     
-    @objc func backTapped() {
-        delegate?.backTapped()
-    }
+ 
     
+
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +56,8 @@ final class Tab1ViewController: UIViewController {
         
         view.addSubview(button2)
         view.addSubview(button)
-    
-        back = UIBarButtonItem(barButtonSystemItem: .undo, target: self, action: #selector(backTapped))
-        
-        guard let res = delegate?.isBackVisible() else {return}
-        back?.isEnabled = res
-        
-        navigationItem.rightBarButtonItems = [back!]
-        navigationItem.setHidesBackButton(true, animated:true);
+
+//        navigationItem.rightBarButtonItems = [back!]
+//        navigationItem.setHidesBackButton(true, animated:true);
     }
 }

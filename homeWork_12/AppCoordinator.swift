@@ -5,16 +5,16 @@
 //  Created by Дмитрий Яковлев on 09.12.2019.
 //  Copyright © 2019 Дмитрий Яковлев. All rights reserved.
 //
-
 import UIKit
 
-final class AppCoordinator {
+final class AppCoordinator : MyMainTabBarControllerDelegate, Coordinator{
+    var window: UIWindow
     
-    private let window: UIWindow
-    private let navigation: UINavigationController
+    var navigation: UINavigationController
     
-    private var navigationHistory: [vc] = []
-    
+    var childCoordinators: Coordinator?
+    var navigationHistory: [vc] = []
+            
     init(window: UIWindow, navigation: UINavigationController) {
         self.window = window
         self.navigation = navigation
@@ -27,40 +27,35 @@ final class AppCoordinator {
     }
     
     func start() {
-        let login = Tab1ViewController()
-        login.delegate = self
-        navigation.pushViewController(login, animated: true)
+        let v = MainViewController()
+       
+        v.delegate = self
+        navigation.pushViewController(v, animated: true)
     }
 }
 
 // MARK: - Enum for history array
 enum vc {
-    case tab1ViewController
-    case tab2ViewController
+    case mainViewController
+    case mainTabBarController
 }
 // MARK: - Tab1ViewController Coordinator Delegate Delegate
-extension AppCoordinator: Tab1ViewControllerCoordinatorDelegate {
+extension AppCoordinator: MainViewControllerDelegate {
     
-    func tab2PressedButton() {
-        let tab = Tab2ViewController()
-        tab.delegate = self
-        navigationHistory.append(.tab1ViewController)
-        navigation.pushViewController(tab, animated: false)
+    func buttonPressed() {
+        
+        let tabBar = MainTabBarController()
+        tabBar.coordinators = self
+        
+        navigation.pushViewController(tabBar, animated: true)
     }
     
+    
+  
 }
 
-// MARK: - Tab2ViewController Coordinator Delegate
-extension AppCoordinator: Tab2ViewControllerCoordinatorDelegate {
-    func tab1Pressed() {
-        let tab = Tab1ViewController()
-        tab.delegate = self
-        navigationHistory.append(.tab2ViewController)
-        navigation.pushViewController(tab, animated: false)
-        
-    }
-    
-}
+
+
 
 
 // MARK: - Extension for history array
@@ -69,14 +64,13 @@ extension AppCoordinator{
     func backTapped(){
         guard navigationHistory.count > 0 else {return}
         switch navigationHistory.removeLast() {
-        case .tab1ViewController:
-            let tab = Tab1ViewController()
+        case .mainViewController:
+            let tab = MainViewController()
             tab.delegate = self
             navigation.pushViewController(tab, animated: false)
             
-        case .tab2ViewController:
-            let tab = Tab2ViewController()
-            tab.delegate = self
+        case .mainTabBarController:
+            let tab = MainTabBarController()
             navigation.pushViewController(tab, animated: false)
         }
     }
@@ -104,5 +98,13 @@ private extension UINavigationController {
     func configure() {
         navigationBar.isHidden = false
         self.navigationItem.setHidesBackButton(true, animated:true);
+    }
+}
+
+
+
+extension AppCoordinator : TabBarCoordinatorDelegate {
+    func undoPressed() {
+        backTapped()
     }
 }
