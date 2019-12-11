@@ -13,7 +13,7 @@ protocol TabBarCoordinatorDelegate: AnyObject {
 }
 
 final class TabBarCoordinator: Coordinator{
-    var childCoordinators: Coordinator?
+    weak var childCoordinators: Coordinator?
     
     var window: UIWindow
     var tabController: UITabBarController

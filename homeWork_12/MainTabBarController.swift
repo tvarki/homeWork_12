@@ -17,7 +17,7 @@ class MainTabBarController: UITabBarController {
     
     
     
-    var coordinators : Coordinator?
+    weak var coordinators : Coordinator?
     let main = TabBarCoordinator(window: UIWindow(), tabController: UITabBarController(),navigation: UINavigationController())
     
     @objc func backTapped() {
