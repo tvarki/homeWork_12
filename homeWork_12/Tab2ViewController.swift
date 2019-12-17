@@ -17,8 +17,6 @@ final class Tab2ViewController: UIViewController {
     
     weak var delegate: Tab2ViewControllerCoordinatorDelegate?
     
-    var button2:UIButton = UIButton()
-    var button:UIButton = UIButton()
     var back : UIBarButtonItem?
 
     // MARK: - Click buttons functions
@@ -30,13 +28,15 @@ final class Tab2ViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.button2 = UIButton()
-        self.button = UIButton()
+       
         setup()
     }
     
     // MARK: - View setup
     func setup(){
+        let button2 = UIButton()
+        let button = UIButton()
+        
         view.backgroundColor = .red
         
         button2.setTitle("Tab2", for: .normal)
