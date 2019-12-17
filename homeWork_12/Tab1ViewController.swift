@@ -17,8 +17,8 @@ protocol Tab1ViewControllerCoordinatorDelegate: AnyObject {
 final class Tab1ViewController: UIViewController {
     
     weak var delegate: Tab1ViewControllerCoordinatorDelegate?
-    var button2:UIButton = UIButton()
-    var button:UIButton = UIButton()
+    var button2:UIButton?
+    var button:UIButton?
     var back : UIBarButtonItem?
     
     
@@ -33,29 +33,30 @@ final class Tab1ViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.button2 = UIButton()
-        self.button = UIButton()
-        
         setup()
     }
     
     // MARK: - View setup
     func setup(){
+        
+        self.button2 = UIButton()
+        self.button = UIButton()
+        
         view.backgroundColor = .blue
-        button2.setTitle("Tab1", for: .normal)
-        button2.sizeToFit()
-        button2.center = CGPoint(x: 100, y: 100)
-        button2.backgroundColor = .systemGray
+        button2?.setTitle("Tab1", for: .normal)
+        button2?.sizeToFit()
+        button2?.center = CGPoint(x: 100, y: 100)
+        button2?.backgroundColor = .systemGray
         
-        button.setTitle("Tab2", for: .normal)
-        button.addTarget(self, action: #selector(didPressButton), for: .touchUpInside)
-        button.sizeToFit()
+        button?.setTitle("Tab2", for: .normal)
+        button?.addTarget(self, action: #selector(didPressButton), for: .touchUpInside)
+        button?.sizeToFit()
+        button?.isEnabled = true
         
-        button.center = CGPoint(x: (view.frame.width/2) + 100, y: 100)
+        button?.center = CGPoint(x: (view.frame.width/2) + 100, y: 100)
         
-        view.addSubview(button2)
-        view.addSubview(button)
+        view.addSubview(button2!)
+        view.addSubview(button!)
 
 //        navigationItem.rightBarButtonItems = [back!]
 //        navigationItem.setHidesBackButton(true, animated:true);

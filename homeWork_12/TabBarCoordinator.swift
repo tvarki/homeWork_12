@@ -55,7 +55,9 @@ extension TabBarCoordinator: Tab1ViewControllerCoordinatorDelegate {
     func tab2PressedButton() {
         let tab = Tab2ViewController()
         tab.delegate = self
-    //        navigation.pushViewController(tab, animated: false)
+        tabController.selectedIndex = 1
+
+        
     }
     
 }
@@ -65,7 +67,7 @@ extension TabBarCoordinator: Tab2ViewControllerCoordinatorDelegate {
     func tab1Pressed() {
         let tab = Tab1ViewController()
         tab.delegate = self
-//        navigation.pushViewController(tab, animated: false)
+        tabController.selectedIndex = 0
         
     }
     
